@@ -72,8 +72,21 @@ public class User {
     }
 
     public void ForkRecipe (UUID forkedRecipeId) {
+        Recipe original = this.database.recettes.getRecipe(forkedRecipeId);
 
-    } // TODO
+        UUID newId = UUID.randomUUID();
+        Recipe forkedRecipe = new Recipe();
+
+        forkedRecipe.setAuthor(this.username);
+        forkedRecipe.setLicence(original.getLicence());
+        forkedRecipe.setName(original.getName());
+        forkedRecipe.setRecipeId(newId);
+        forkedRecipe.setOriginal_recipe(original.getRecipeId());
+        forkedRecipe.setInstructions(original.getInstructions());
+
+        this.cookbook.add(forkedRecipe);
+
+    }
 
 
 }

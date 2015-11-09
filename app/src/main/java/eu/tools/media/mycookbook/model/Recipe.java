@@ -52,6 +52,42 @@ public class Recipe {
         this.licence = licence;
     }
 
+    public UUID getRecipeId() {
+        return recipeId;
+    }
+
+    public void setRecipeId(UUID recipeId) {
+        this.recipeId = recipeId;
+    }
+
+    public String getInstructions() {
+        return instructions;
+    }
+
+    public void setInstructions(String instructions) {
+        this.instructions = instructions;
+    }
+
+    public UUID getOriginal_recipe() {
+        return original_recipe;
+    }
+
+    public void setOriginal_recipe(UUID original_recipe) {
+        this.original_recipe = original_recipe;
+    }
+
+    public ArrayList<UsedIngredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(ArrayList<UsedIngredient> ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public Recipe () {
+
+    }
+
     public Recipe(UUID recipeId, String name, String author, ArrayList<UsedIngredient> ingredients, String instructions) {
         this.recipeId = recipeId;
         this.name = name;

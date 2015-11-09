@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public class Recipes {
 
-    ArrayList<Recipe> list;
+    private ArrayList<Recipe> list;
     static private Ingredients ingredients;
 
     public Recipes(Connection connnect) {
@@ -33,7 +33,16 @@ public class Recipes {
 
     }
 
+    public Recipe getRecipe (UUID RecipeID) {
 
+        for (int i = 0; i < this.list.size() ; i++) {
+            if (this.list.get(i).getRecipeId() == (RecipeID)) {
+                return this.list.get(i);
+            }
+        }
+
+        return null;
+    }
 
 //    TODO : get a recipe by ad Id in cache or on the server
 //    public Recipe getRecipe (UUID id) {
