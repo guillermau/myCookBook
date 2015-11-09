@@ -69,10 +69,14 @@ public class User {
         this.password = Password;
         this.database = connect;
         this.cookbook = new ArrayList<Recipe>();
+
+        UUID idFondant = UUID.fromString("1A5921A0-872A-11E5-9316-A5F464696656");
+        Recipe fondant = Database.recettes.getRecipe(idFondant);
+        this.cookbook.add(fondant);
     }
 
     public void ForkRecipe (UUID forkedRecipeId) {
-        Recipe original = this.database.recettes.getRecipe(forkedRecipeId);
+        Recipe original = Database.recettes.getRecipe(forkedRecipeId);
 
         UUID newId = UUID.randomUUID();
         Recipe forkedRecipe = new Recipe();

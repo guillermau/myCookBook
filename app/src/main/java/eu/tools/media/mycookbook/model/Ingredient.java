@@ -6,13 +6,13 @@ import java.util.Date;
 
 public class Ingredient {
 
-    public String ingredientId;
+    private String ingredientId;
     // public String category; TODO : MetadataPackage
-    public String name;
-    public Base64 image;
-    public ArrayList<String> allergen;
+    private String name;
+    private Base64 image;
+    private ArrayList<String> allergen;
     // public String state; TODO : MetadataPackage
-    public String description;
+    private String description;
     // public ArrayList<Date> season; TODO : MetadataPackage
     // public ArrayList<String> translation; TODO : Language Package
 

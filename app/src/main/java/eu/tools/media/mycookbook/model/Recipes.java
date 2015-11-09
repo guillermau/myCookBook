@@ -24,7 +24,7 @@ public class Recipes {
         UsedIngredient i5 = new UsedIngredient(ingredients.getIngregient("5"),100,"g");
         needs.add(i5);
 
-        Recipe Fondant = new Recipe(var, "Fondant au chocolat", "Béatrice", needs, "blalblalba");
+        Recipe Fondant = new Recipe(connnect, var, "Fondant au chocolat", "Béatrice", needs, "blalblalba");
 
         this.list.add(Fondant);
 

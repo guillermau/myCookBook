@@ -13,12 +13,8 @@ public class Connection {
     private String hostname;
     private String port;
     private String dbname;
-    private String username;
     private String password;
-
-    public static Ingredients ingredients;
-    public static Recipes recettes;
-
+    private String username;
 
     public Connection(String hostname, String port, String dbname) {
         this.hostname = hostname;
@@ -33,6 +29,8 @@ public class Connection {
         this.dbname = dbname;
         this.port = port;
     }
+
+
 
 //    public JSONObject httpRequest (String HTTPMethod, String Path) {
 //        URL serverAddress = null;
@@ -122,5 +120,5 @@ public class Connection {
         }
 
         return content.toString();
-    }
+    } // TODO : Database Package
 }

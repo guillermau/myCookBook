@@ -8,6 +8,7 @@ import java.util.UUID;
 
 public class Recipe {
 
+    Connection connection;
     UUID recipeId;
     String name;
     String author;
@@ -88,7 +89,8 @@ public class Recipe {
 
     }
 
-    public Recipe(UUID recipeId, String name, String author, ArrayList<UsedIngredient> ingredients, String instructions) {
+    public Recipe(Connection databaseC ,UUID recipeId, String name, String author, ArrayList<UsedIngredient> ingredients, String instructions) {
+        this.connection = databaseC;
         this.recipeId = recipeId;
         this.name = name;
         this.author = author;
