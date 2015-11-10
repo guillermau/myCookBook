@@ -29,7 +29,7 @@
         android:layout_below="@+id/pageLogin"
         android:layout_alignParentStart="true"
         android:layout_marginTop="77dp"
-        android:layout_alignEnd="@+id/pageLogin">
+        android:layout_alignParentEnd="true">
 
     </ListView>
 

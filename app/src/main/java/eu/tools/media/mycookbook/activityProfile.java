@@ -44,30 +44,50 @@ public class activityProfile extends AppCompatActivity {
             // Création d'un user
             Connection connection = new Connection("couchDB.Boudrat.eu","5984","mycookbook");
             User myUser = new User(connection,intent.getStringExtra(EXTRA_LOGIN),intent.getStringExtra(EXTRA_PASSWORD));
-            List<String> list = new ArrayList<String>();
-            list.add("list 1");
-            list.add("list 2");
-            list.add("list 3");
+
+            ArrayList<Recipe> listRecette = myUser.getCookbook();
+
 
             String username = myUser.getUsername();
             String pass = myUser.getPassword();
             String mail = myUser.getEmailAddress();
             Log.d ("debug", username);
             Log.d("debug",pass );
-            Log.d("debug",mail );
-            ArrayList<Recipe> listRecette = myUser.getCookbook();
-            Recipe recette = listRecette.get(0);
-            String nom  = recette.getName();
-            Log.d("debug",nom);
+            Log.d("debug", mail);
+
+            ArrayList<String> listNoms = new ArrayList<String>();
+            for (int i = 0; i < listRecette.size(); ++i) {
+                Recipe recette = listRecette.get(i);
+                String nom = recette.getName();
+                listNoms.add(nom);
+            }
 
             //Création de l'adapter
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listNoms);
 
             //Récupération du ListView présent dans notre IHM
             ListView list1 = (ListView)findViewById(R.id.listViewUser);
 
             //On passe nos données au composant ListView
             list1.setAdapter(adapter);
+
+
+            // listening to single list item on click
+            list1.setOnItemClickListener(new OnItemClickListener() {
+                public void onItemClick(AdapterView<?> parent, View view,
+                                        int position, long id) {
+
+                    // selected item
+                    String product = ((TextView) view).getText().toString();
+
+                    // Launching new Activity on selecting single List Item
+                    Intent i = new Intent(getApplicationContext(), activityVisuRecipe.class);
+                    // sending data to new activity
+                    i.putExtra("product", product);
+                    startActivity(i);
+
+                }
+            });
 
 
 
