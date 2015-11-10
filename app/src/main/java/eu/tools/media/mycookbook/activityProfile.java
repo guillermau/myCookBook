@@ -1,5 +1,6 @@
 package eu.tools.media.mycookbook;
 
+
 /**
  * Created by benedictefahrer on 05/11/2015.
  */
@@ -11,14 +12,19 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Button;
 import android.content.Intent;
 import android.widget.TextView;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import java.util.ArrayList;
 import java.util.List;
+import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+
+
 
 public class activityProfile extends AppCompatActivity {
     final String EXTRA_LOGIN = "user_login";
@@ -32,33 +38,27 @@ public class activityProfile extends AppCompatActivity {
             setContentView(R.layout.activity_profile);
             Intent intent = getIntent();
 
-
-            // Spinner element
-            Spinner spinner = (Spinner) findViewById(R.id.spinnerRecipe);
-
-            // Spinner click listener
-            //spinner.setOnItemSelectedListener(this);
-
-            // Spinner Drop down elements
-            List<String> recipes = new ArrayList<String>();
-            recipes.add("Lasagne");
-            recipes.add("Chili");
-            recipes.add("TEst");
-
-            // Creating adapter for spinner
-            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, recipes);
-
-            // Drop down layout style - list view with radio button
-            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-            // attaching data adapter to spinner
-            spinner.setAdapter(dataAdapter);
+            List<String> list = new ArrayList<String>();
+            list.add("list 1");
+            list.add("list 2");
+            list.add("list 3");
 
 
-            m_login = (TextView) findViewById(R.id.loginTest);
+            //Création de l'adapter
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
+
+            //Récupération du ListView présent dans notre IHM
+            ListView list1 = (ListView)findViewById(R.id.listViewUser);
+
+            //On passe nos données au composant ListView
+            list1.setAdapter(adapter);
+
+
+
+            //m_login = (TextView) findViewById(R.id.loginTest);
             //m_password = (TextView) findViewById(R.id.passwordTest);
 
-                m_login.setText(intent.getStringExtra(EXTRA_LOGIN));
+                //m_login.setText(intent.getStringExtra(EXTRA_LOGIN));
                 //m_password.setText(intent.getStringExtra(EXTRA_PASSWORD));
 
         }
