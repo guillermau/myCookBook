@@ -30,8 +30,6 @@ public class Connection {
         this.port = port;
     }
 
-
-
 //    public JSONObject httpRequest (String HTTPMethod, String Path) {
 //        URL serverAddress = null;
 //        String resultat;
