@@ -74,6 +74,9 @@ public class User {
         this.password = Password;
         this.cookbook = new ArrayList<Recipe>();
         this.cookbook.add(new Recipe(connection, "1"));
+        this.cookbook.add(new Recipe(connection, "2"));
+        this.cookbook.add(new Recipe(connection, "3"));
+        this.cookbook.add(new Recipe(connection, "4"));
     }
 
 //    public void ForkRecipe (String forkedRecipeId) {
