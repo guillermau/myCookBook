@@ -61,6 +61,10 @@ public class User {
         this.firstName = firstName;
     }
 
+    public ArrayList<Recipe> getCookbook() {
+        return cookbook;
+    }
+
     public User(Connection connection, String username, String Password) {
         this.connection = connection;
         this.username = username;

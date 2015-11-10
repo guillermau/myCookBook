@@ -19,12 +19,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import java.util.ArrayList;
 import java.util.List;
+import android.util.Log;
+
+import eu.tools.media.mycookbook.model.Connection;
+import eu.tools.media.mycookbook.model.Recipe;
+import eu.tools.media.mycookbook.model.User;
 
 public class activityProfile extends AppCompatActivity {
     final String EXTRA_LOGIN = "user_login";
     final String EXTRA_PASSWORD = "user_password";
-    private TextView m_login = null;
-    private TextView m_password = null;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -32,34 +35,23 @@ public class activityProfile extends AppCompatActivity {
             setContentView(R.layout.activity_profile);
             Intent intent = getIntent();
 
+            // Création d'un user
+            Connection connection = new Connection("couchDB.Boudrat.eu","5984","mycookbook");
+            User myUser = new User(connection,intent.getStringExtra(EXTRA_LOGIN),intent.getStringExtra(EXTRA_PASSWORD));
 
-            // Spinner element
-            Spinner spinner = (Spinner) findViewById(R.id.spinnerRecipe);
-
-            // Spinner click listener
-            //spinner.setOnItemSelectedListener(this);
-
-            // Spinner Drop down elements
-            List<String> recipes = new ArrayList<String>();
-            recipes.add("Lasagne");
-            recipes.add("Chili");
-            recipes.add("TEst");
-
-            // Creating adapter for spinner
-            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, recipes);
-
-            // Drop down layout style - list view with radio button
-            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-            // attaching data adapter to spinner
-            spinner.setAdapter(dataAdapter);
+            String username = myUser.getUsername();
+            String pass = myUser.getPassword();
+            String mail = myUser.getEmailAddress();
+            Log.d ("debug", username);
+            Log.d("debug",pass );
+            Log.d("debug",mail );
+            ArrayList<Recipe> listRecette = myUser.getCookbook();
+            Recipe recette = listRecette.get(0);
+            String nom  = recette.getName();
+            Log.d("debug",nom);
 
 
-            m_login = (TextView) findViewById(R.id.loginTest);
-            //m_password = (TextView) findViewById(R.id.passwordTest);
 
-                m_login.setText(intent.getStringExtra(EXTRA_LOGIN));
-                //m_password.setText(intent.getStringExtra(EXTRA_PASSWORD));
 
         }
 }
