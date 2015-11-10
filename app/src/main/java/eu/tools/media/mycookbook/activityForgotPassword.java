@@ -1,4 +1,4 @@
-package eu.tools.media.cookbook;
+package eu.tools.media.mycookbook;
 
 
 import android.os.Bundle;

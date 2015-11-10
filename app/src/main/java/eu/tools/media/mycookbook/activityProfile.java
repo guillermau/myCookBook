@@ -1,4 +1,4 @@
-package eu.tools.media.cookbook;
+package eu.tools.media.mycookbook;
 
 /**
  * Created by benedictefahrer on 05/11/2015.
