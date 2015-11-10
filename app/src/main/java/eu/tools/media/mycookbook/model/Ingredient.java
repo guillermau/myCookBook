@@ -86,6 +86,16 @@ public class Ingredient {
                 this.description = "C'est de la barre";
                 this.allergen = new ArrayList<Allergen>();
                 break;
+            case "6":
+                this.name = "Lait";
+                this.description = "C'est de la barre";
+                this.allergen = new ArrayList<Allergen>();
+                break;
+            case "7":
+                this.name = "Sirop de fraise";
+                this.description = "C'est de la barre";
+                this.allergen = new ArrayList<Allergen>();
+                break;
             default:
                 this.ingredientId = "5";
                 this.name = "Sucre";
