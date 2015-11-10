@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public class User {
 
-    private Connection database;
+    private Connection connection;
     private UUID databaseId = null;
     private String username = null;
     private String familyName = null;
@@ -61,35 +61,38 @@ public class User {
         this.firstName = firstName;
     }
 
-    public User(String username, String Password, Connection connect) {
+    public User(Connection connection, String username, String Password, Database connect) {
+        this.connection = connection;
         this.username = username;
         this.familyName = "Dalton";
         this.firstName = "John";
         this.emailAddress = "john@dalton.us";
         this.password = Password;
-        this.database = connect;
         this.cookbook = new ArrayList<Recipe>();
 
-        UUID idFondant = UUID.fromString("1A5921A0-872A-11E5-9316-A5F464696656");
-        Recipe fondant = Database.recettes.getRecipe(idFondant);
-        this.cookbook.add(fondant);
+//        Recipe fondant = this.connection.getRecipe("1A5921A0-872A-11E5-9316-A5F464696656");
+//        this.cookbook.add(fondant);
     }
 
-    public void ForkRecipe (UUID forkedRecipeId) {
-        Recipe original = Database.recettes.getRecipe(forkedRecipeId);
+//    public void ForkRecipe (String forkedRecipeId) {
+//        Recipe original =this.connection.getRecipe(forkedRecipeId);
+//
+//        UUID newId = UUID.randomUUID();
+//        Recipe forkedRecipe = new Recipe();
+//
+//        forkedRecipe.setAuthor(this.username);
+//        forkedRecipe.setLicence(original.getLicence());
+//        forkedRecipe.setName(original.getName());
+//        forkedRecipe.setRecipeId("1A5921A0-872A-11E5-9316-A5F464696657");
+//        forkedRecipe.setOriginal_recipe(original.getRecipeId());
+//        forkedRecipe.setInstructions(original.getInstructions());
+//
+//        this.cookbook.add(forkedRecipe);
+//
+//    }
 
-        UUID newId = UUID.randomUUID();
-        Recipe forkedRecipe = new Recipe();
-
-        forkedRecipe.setAuthor(this.username);
-        forkedRecipe.setLicence(original.getLicence());
-        forkedRecipe.setName(original.getName());
-        forkedRecipe.setRecipeId(newId);
-        forkedRecipe.setOriginal_recipe(original.getRecipeId());
-        forkedRecipe.setInstructions(original.getInstructions());
-
-        this.cookbook.add(forkedRecipe);
-
+    public boolean login () {
+        return true;
     }
 
 
