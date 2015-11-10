@@ -6,7 +6,7 @@ import java.util.UUID;
 public class User {
 
     private Connection connection;
-    private UUID databaseId = null;
+    private String userId = null;
     private String username = null;
     private String familyName = null;
     private String firstName = null;
@@ -61,7 +61,7 @@ public class User {
         this.firstName = firstName;
     }
 
-    public User(Connection connection, String username, String Password, Database connect) {
+    public User(Connection connection, String username, String Password) {
         this.connection = connection;
         this.username = username;
         this.familyName = "Dalton";
@@ -69,9 +69,7 @@ public class User {
         this.emailAddress = "john@dalton.us";
         this.password = Password;
         this.cookbook = new ArrayList<Recipe>();
-
-//        Recipe fondant = this.connection.getRecipe("1A5921A0-872A-11E5-9316-A5F464696656");
-//        this.cookbook.add(fondant);
+        this.cookbook.add(new Recipe(connection, "1"));
     }
 
 //    public void ForkRecipe (String forkedRecipeId) {

@@ -9,13 +9,13 @@ import java.util.UUID;
 public class Recipe {
 
     Connection connection;
-    UUID recipeId;
+    String recipeId;
     String name;
     String author;
     // ArrayList<String> contributors; // TODO : Social pakage
     Base64 photo;
     String licence;
-    UUID original_recipe;
+    String original_recipe;
     // String publication_rules; // TODO : Social pakage
     ArrayList<UsedIngredient> ingredients;
     String instructions;
@@ -53,11 +53,11 @@ public class Recipe {
         this.licence = licence;
     }
 
-    public UUID getRecipeId() {
+    public String getRecipeId() {
         return recipeId;
     }
 
-    public void setRecipeId(UUID recipeId) {
+    public void setRecipeId(String recipeId) {
         this.recipeId = recipeId;
     }
 
@@ -69,11 +69,11 @@ public class Recipe {
         this.instructions = instructions;
     }
 
-    public UUID getOriginal_recipe() {
+    public String getOriginal_recipe() {
         return original_recipe;
     }
 
-    public void setOriginal_recipe(UUID original_recipe) {
+    public void setOriginal_recipe(String original_recipe) {
         this.original_recipe = original_recipe;
     }
 
@@ -89,13 +89,36 @@ public class Recipe {
 
     }
 
-    public Recipe(Connection databaseC ,UUID recipeId, String name, String author, ArrayList<UsedIngredient> ingredients, String instructions) {
-        this.connection = databaseC;
-        this.recipeId = recipeId;
+    public Recipe(Connection connection, String name, String author, ArrayList<UsedIngredient> ingredients, String instructions) {
         this.name = name;
         this.author = author;
         this.ingredients = ingredients;
         this.instructions =  instructions;
         this.licence = "MIT";
+    }
+
+    public Recipe(Connection connection, String recipeId) {
+        this.connection = connection;
+        this.recipeId = recipeId;
+
+        switch (recipeId) {
+            case "1" :
+                this.name = "Fondant au chocolat";
+                this.author = "Béatrice";
+                this.instructions = "balabla";
+                this.ingredients = new ArrayList<UsedIngredient>() ;
+                UsedIngredient i1 = new UsedIngredient(new Ingredient(connection, "1"), 150, "g");
+                this.ingredients.add(i1);
+                UsedIngredient i2 = new UsedIngredient(new Ingredient(connection, "2"), 75, "g");
+                this.ingredients.add(i2);
+                UsedIngredient i3 = new UsedIngredient(new Ingredient(connection, "3"), 5, "");
+                this.ingredients.add(i3);
+                UsedIngredient i4 = new UsedIngredient(new Ingredient(connection, "4"), 200, "g");
+                this.ingredients.add(i4);
+                UsedIngredient i5 = new UsedIngredient(new Ingredient(connection, "5"), 100, "g");
+                this.ingredients.add(i5);
+
+                break;
+        }
     }
 }
