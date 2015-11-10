@@ -117,7 +117,36 @@ public class Recipe {
                 this.ingredients.add(i4);
                 UsedIngredient i5 = new UsedIngredient(new Ingredient(connection, "5"), 100, "g");
                 this.ingredients.add(i5);
-
+                break;
+            case "2" :
+                this.name = "Oeufs au plat";
+                this.author = "Un vieux barbu";
+                this.instructions = "Casser les oeufs";
+                this.ingredients = new ArrayList<UsedIngredient>();
+                UsedIngredient i6 = new UsedIngredient(new Ingredient(connection, "3"), 5, "");
+                this.ingredients.add(i6);
+                break;
+            case "3" :
+                this.name = "Crepes";
+                this.author = "La mere michel";
+                this.instructions = "Casser les oeufs et mélanger. Ajouter la farine et le lait. Melanger.";
+                this.ingredients = new ArrayList<UsedIngredient>();
+                UsedIngredient i7 = new UsedIngredient(new Ingredient(connection, "3"), 3, "");
+                this.ingredients.add(i7);
+                UsedIngredient i8 = new UsedIngredient(new Ingredient(connection, "6"), 500, "mL");
+                this.ingredients.add(i8);
+                UsedIngredient i9 = new UsedIngredient(new Ingredient(connection, "2"), 250, "g");
+                this.ingredients.add(i9);
+                break;
+            case "4" :
+                this.name = "Bébé rose";
+                this.author = "Boudha";
+                this.instructions = "Versez le sirop au fond d'un verre, puis ajouter le lait";
+                this.ingredients = new ArrayList<UsedIngredient>();
+                UsedIngredient i10 = new UsedIngredient(new Ingredient(connection, "7"), 5, "mL");
+                this.ingredients.add(i10);
+                UsedIngredient i11 = new UsedIngredient(new Ingredient(connection, "6"), 20, "mL");
+                this.ingredients.add(i11);
                 break;
         }
     }

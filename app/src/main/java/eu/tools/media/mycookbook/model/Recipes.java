@@ -6,6 +6,6 @@ import java.util.UUID;
 public class Recipes {
 
     private ArrayList<Recipe> list;
-    static private Ingredients ingredients;
+    static private Connection connection;
 
 }
