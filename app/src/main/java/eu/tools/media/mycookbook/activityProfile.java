@@ -48,12 +48,15 @@ public class activityProfile extends AppCompatActivity {
             ArrayList<Recipe> listRecette = myUser.getCookbook();
 
 
-            String username = myUser.getUsername();
-            String pass = myUser.getPassword();
+            final String username = myUser.getUsername();
+            final String pass = myUser.getPassword();
             String mail = myUser.getEmailAddress();
-            Log.d ("debug", username);
+            /*Log.d ("debug", username);
             Log.d("debug",pass );
-            Log.d("debug", mail);
+            Log.d("debug", mail);*/
+
+            final String EXTRA_LOGIN = "user_login";
+            final String EXTRA_PASSWORD = "user_password";
 
             ArrayList<String> listNoms = new ArrayList<String>();
             for (int i = 0; i < listRecette.size(); ++i) {
@@ -82,20 +85,16 @@ public class activityProfile extends AppCompatActivity {
 
                     // Launching new Activity on selecting single List Item
                     Intent i = new Intent(getApplicationContext(), activityVisuRecipe.class);
+                    i.putExtra(EXTRA_LOGIN, username);
+                    i.putExtra(EXTRA_PASSWORD, pass);
                     // sending data to new activity
                     i.putExtra("product", product);
+                    i.putExtra("position", position);
+                    //Log.d("debug", "position "+position);
                     startActivity(i);
 
                 }
             });
-
-
-
-            //m_login = (TextView) findViewById(R.id.loginTest);
-            //m_password = (TextView) findViewById(R.id.passwordTest);
-
-                //m_login.setText(intent.getStringExtra(EXTRA_LOGIN));
-                //m_password.setText(intent.getStringExtra(EXTRA_PASSWORD));
 
         }
 }

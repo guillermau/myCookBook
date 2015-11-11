@@ -40,7 +40,7 @@
             android:text="List of ingredients"
             android:id="@+id/ingredientsList"
             android:textColor="#474766"
-            android:textSize="40sp"
+            android:textSize="20sp"
             android:layout_gravity="center"
             android:layout_weight="1"/>
 
@@ -51,7 +51,7 @@
             android:text="list of instructions"
             android:id="@+id/instructionsList"
             android:textColor="#474766"
-            android:textSize="40sp"
+            android:textSize="20sp"
             android:layout_gravity="center"
             android:layout_weight="1"/>
 

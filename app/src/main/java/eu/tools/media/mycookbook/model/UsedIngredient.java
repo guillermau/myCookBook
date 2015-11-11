@@ -10,4 +10,8 @@ public class UsedIngredient {
         this.quantity = quantity;
         this.unit = unit;
     }
+
+    public Ingredient getUsedIngredient() {
+        return usedIngredient;
+    }
 }
