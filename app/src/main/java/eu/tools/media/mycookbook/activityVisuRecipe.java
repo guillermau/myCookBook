@@ -54,8 +54,14 @@ public class activityVisuRecipe extends AppCompatActivity{
         {
             UsedIngredient ingredient = ingredients.get(i);
             Ingredient ingre = ingredient.getUsedIngredient();
+            int quantite = ingredient.getQuantity();
+            String unite = ingredient.getUnit();
             String nom = ingre.getName();
             nom_total += nom;
+            nom_total += " ";
+            nom_total += quantite;
+            nom_total += " ";
+            nom_total += unite;
             nom_total += "\n";
         }
 

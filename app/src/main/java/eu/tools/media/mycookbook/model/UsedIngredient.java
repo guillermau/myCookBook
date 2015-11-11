@@ -14,4 +14,13 @@ public class UsedIngredient {
     public Ingredient getUsedIngredient() {
         return usedIngredient;
     }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public Integer getQuantity() {
+
+        return quantity;
+    }
 }
