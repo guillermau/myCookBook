@@ -24,6 +24,8 @@ public class activityVisuRecipe extends AppCompatActivity{
     final String EXTRA_RECIPE = "product";
     final String EXTRA_POSITION = "position";
     TextView m_ingredient = null;
+    TextView m_instructions = null;
+    TextView m_nameRecette = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,8 @@ public class activityVisuRecipe extends AppCompatActivity{
         Intent intent = getIntent();
 
         m_ingredient = (TextView) findViewById(R.id.ingredientsList);
+        m_instructions = (TextView) findViewById(R.id.instructionsList);
+        m_nameRecette = (TextView) findViewById(R.id.nameRecipe);
 
         // Création d'un user
         Connection connection = new Connection("couchDB.Boudrat.eu","5984","mycookbook");
@@ -42,11 +46,20 @@ public class activityVisuRecipe extends AppCompatActivity{
 
         // get the recipe we want ti visualize
         String recipe = intent.getStringExtra(EXTRA_RECIPE);
-        int position = intent.getIntExtra(EXTRA_POSITION,0);
+        int position = intent.getIntExtra(EXTRA_POSITION, 0);
         Log.d("debug", recipe);
         Log.d("debug", "position" + position);
 
         Recipe recette = listRecette.get(position);
+        String instructions = recette.getInstructions();
+        m_instructions.setText(instructions);
+
+        String nameRecette = recette.getName();
+        m_nameRecette.setText(nameRecette);
+
+
+
+
         ArrayList<UsedIngredient> ingredients = recette.getIngredients();
 
         String nom_total = "Liste des ingredients: \n \n";
