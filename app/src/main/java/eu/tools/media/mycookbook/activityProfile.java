@@ -34,6 +34,10 @@ import eu.tools.media.mycookbook.model.User;
 public class activityProfile extends AppCompatActivity {
     final String EXTRA_LOGIN = "user_login";
     final String EXTRA_PASSWORD = "user_password";
+    TextView m_userName = null;
+    TextView m_emailAddress = null;
+    TextView m_profileUser = null;
+
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +99,29 @@ public class activityProfile extends AppCompatActivity {
 
                 }
             });
+
+            // Profile Of FirstName FamilyName
+            m_profileUser = (TextView) findViewById(R.id.pageLogin);
+            String firstName = myUser.getFirstName();
+            String familyName = myUser.getFamilyName();
+            String name_profile = "Profile Of ";
+            name_profile += firstName;
+            name_profile += " ";
+            name_profile += familyName;
+            m_profileUser.setText(name_profile);
+
+            // Display user name
+            m_userName = (TextView) findViewById(R.id.username);
+            String nom_user = "User Name : ";
+            nom_user += username;
+            m_userName.setText(nom_user);
+
+            // Display Email Address
+            m_emailAddress = (TextView) findViewById(R.id.email);
+            String email = myUser.getEmailAddress();
+            String user_address = "Email Address : ";
+            user_address += email;
+            m_emailAddress.setText(user_address);
 
         }
 }
