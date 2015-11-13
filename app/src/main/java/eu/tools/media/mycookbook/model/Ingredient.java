@@ -77,7 +77,7 @@ public class Ingredient {
                 this.allergen = new ArrayList<Allergen>();
                 break;
             case "3":
-                this.name = "Oeuf";
+                this.name = "Oeufs";
                 this.description = "C'est de la barre";
                 this.allergen = new ArrayList<Allergen>();
                 break;

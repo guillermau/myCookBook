@@ -12,6 +12,8 @@ public class Recipe {
     String recipeId;
     String name;
     String author;
+    int tempsCuisson;
+    int tempsPreparation;
     // ArrayList<String> contributors; // TODO : Social pakage
     Base64 photo;
     String licence;
@@ -89,12 +91,22 @@ public class Recipe {
 
     }
 
-    public Recipe(Connection connection, String name, String author, ArrayList<UsedIngredient> ingredients, String instructions) {
+    public Recipe(Connection connection, String name, String author, ArrayList<UsedIngredient> ingredients, String instructions,int tempsCuisson, int tempsPreparation) {
         this.name = name;
         this.author = author;
         this.ingredients = ingredients;
         this.instructions =  instructions;
         this.licence = "MIT";
+        this.tempsCuisson = tempsCuisson;
+        this.tempsPreparation = tempsPreparation;
+    }
+
+    public int getTempsCuisson() {
+        return tempsCuisson;
+    }
+
+    public int getTempsPreparation() {
+        return tempsPreparation;
     }
 
     public Recipe(Connection connection, String recipeId) {
@@ -105,7 +117,10 @@ public class Recipe {
             case "1" :
                 this.name = "Fondant au chocolat";
                 this.author = "Béatrice";
-                this.instructions = "balabla";
+                this.tempsPreparation = 15;
+                this.tempsCuisson = 30;
+
+                this.instructions = "Mélangez tous les ingrédients dans un bol \n Puis verser le contenu dans un bol \n cuire pendant 30 minutes à 180 degrés";
                 this.ingredients = new ArrayList<UsedIngredient>() ;
                 UsedIngredient i1 = new UsedIngredient(new Ingredient(connection, "1"), 150, "g");
                 this.ingredients.add(i1);
@@ -121,7 +136,9 @@ public class Recipe {
             case "2" :
                 this.name = "Oeufs au plat";
                 this.author = "Un vieux barbu";
-                this.instructions = "Casser les oeufs";
+                this.tempsPreparation = 5;
+                this.tempsCuisson = 5;
+                this.instructions = "Casser les oeufs \nBattez les oeufs \nMettre dans une poelle";
                 this.ingredients = new ArrayList<UsedIngredient>();
                 UsedIngredient i6 = new UsedIngredient(new Ingredient(connection, "3"), 5, "");
                 this.ingredients.add(i6);
@@ -129,7 +146,9 @@ public class Recipe {
             case "3" :
                 this.name = "Crepes";
                 this.author = "La mere michel";
-                this.instructions = "Casser les oeufs et mélanger. Ajouter la farine et le lait. Melanger.";
+                this.tempsPreparation = 10;
+                this.tempsCuisson = 2;
+                this.instructions = "Casser les oeufs et mélanger. \nAjouter la farine et le lait. \nMelanger.";
                 this.ingredients = new ArrayList<UsedIngredient>();
                 UsedIngredient i7 = new UsedIngredient(new Ingredient(connection, "3"), 3, "");
                 this.ingredients.add(i7);
@@ -141,12 +160,48 @@ public class Recipe {
             case "4" :
                 this.name = "Bébé rose";
                 this.author = "Boudha";
-                this.instructions = "Versez le sirop au fond d'un verre, puis ajouter le lait";
+                this.tempsPreparation = 5;
+                this.tempsCuisson = 0;
+                this.instructions = "Versez le sirop au fond d'un verre \npuis ajouter le lait";
                 this.ingredients = new ArrayList<UsedIngredient>();
                 UsedIngredient i10 = new UsedIngredient(new Ingredient(connection, "7"), 5, "mL");
                 this.ingredients.add(i10);
                 UsedIngredient i11 = new UsedIngredient(new Ingredient(connection, "6"), 20, "mL");
                 this.ingredients.add(i11);
+                break;
+            case "5" :
+                this.name = "Lasagne";
+                this.author = "Béné";
+                this.instructions = "To do";
+                this.ingredients = new ArrayList<UsedIngredient>();
+                UsedIngredient i12 = new UsedIngredient(new Ingredient(connection, "7"), 5, "mL");
+                this.ingredients.add(i12);
+                UsedIngredient i13 = new UsedIngredient(new Ingredient(connection, "6"), 20, "mL");
+                this.ingredients.add(i13);
+                break;
+            case "6" :
+                this.name = "Chili";
+                this.author = "Boudha";
+                this.tempsPreparation = 15;
+                this.tempsCuisson = 30;
+                this.instructions = "Versez le sirop au fond d'un verre \npuis ajouter le lait";
+                this.ingredients = new ArrayList<UsedIngredient>();
+                UsedIngredient i14 = new UsedIngredient(new Ingredient(connection, "7"), 5, "mL");
+                this.ingredients.add(i14);
+                UsedIngredient i15 = new UsedIngredient(new Ingredient(connection, "6"), 20, "mL");
+                this.ingredients.add(i15);
+                break;
+            case "7" :
+                this.name = "Gratin";
+                this.author = "Boudha";
+                this.tempsPreparation = 15;
+                this.tempsCuisson = 30;
+                this.instructions = "Versez le sirop au fond d'un verre \npuis ajouter le lait";
+                this.ingredients = new ArrayList<UsedIngredient>();
+                UsedIngredient i16 = new UsedIngredient(new Ingredient(connection, "7"), 5, "mL");
+                this.ingredients.add(i16);
+                UsedIngredient i17 = new UsedIngredient(new Ingredient(connection, "6"), 20, "mL");
+                this.ingredients.add(i17);
                 break;
         }
     }

@@ -77,6 +77,9 @@ public class User {
         this.cookbook.add(new Recipe(connection, "2"));
         this.cookbook.add(new Recipe(connection, "3"));
         this.cookbook.add(new Recipe(connection, "4"));
+        this.cookbook.add(new Recipe(connection, "5"));
+        this.cookbook.add(new Recipe(connection, "6"));
+        this.cookbook.add(new Recipe(connection, "7"));
     }
 
 //    public void ForkRecipe (String forkedRecipeId) {

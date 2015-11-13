@@ -26,6 +26,7 @@ public class activityVisuRecipe extends AppCompatActivity{
     TextView m_ingredient = null;
     TextView m_instructions = null;
     TextView m_nameRecette = null;
+    TextView m_temps = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,7 @@ public class activityVisuRecipe extends AppCompatActivity{
         m_ingredient = (TextView) findViewById(R.id.ingredientsList);
         m_instructions = (TextView) findViewById(R.id.instructionsList);
         m_nameRecette = (TextView) findViewById(R.id.nameRecipe);
+        m_temps = (TextView) findViewById(R.id.temps);
 
         // Création d'un user
         Connection connection = new Connection("couchDB.Boudrat.eu","5984","mycookbook");
@@ -57,12 +59,26 @@ public class activityVisuRecipe extends AppCompatActivity{
         String nameRecette = recette.getName();
         m_nameRecette.setText(nameRecette);
 
+        int tempsCuisson = recette.getTempsCuisson();
+        Log.d("debug", " " + tempsCuisson);
+        int tempsPreparation = recette.getTempsPreparation();
+        Log.d("debug", " " + tempsPreparation);
+
+        String tempsTotal = " temps de cuisson : ";
+        tempsTotal += tempsCuisson;
+        tempsTotal +=" minutes";
+        tempsTotal += "\n";
+        tempsTotal+= " temps de préparation: ";
+        tempsTotal += tempsPreparation;
+        tempsTotal +=" minutes";
+        m_temps.setText(tempsTotal);
+
 
 
 
         ArrayList<UsedIngredient> ingredients = recette.getIngredients();
 
-        String nom_total = "Liste des ingredients: \n \n";
+        String nom_total = "\n";
         for(int i = 0; i < ingredients.size(); ++i)
         {
             UsedIngredient ingredient = ingredients.get(i);
@@ -70,11 +86,12 @@ public class activityVisuRecipe extends AppCompatActivity{
             int quantite = ingredient.getQuantity();
             String unite = ingredient.getUnit();
             String nom = ingre.getName();
-            nom_total += nom;
-            nom_total += " ";
+            nom_total += "  - ";
             nom_total += quantite;
             nom_total += " ";
             nom_total += unite;
+            nom_total += " ";
+            nom_total += nom;
             nom_total += "\n";
         }
 
