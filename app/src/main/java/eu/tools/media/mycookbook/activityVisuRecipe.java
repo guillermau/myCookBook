@@ -53,7 +53,8 @@ public class activityVisuRecipe extends AppCompatActivity{
         Log.d("debug", "position" + position);
 
         Recipe recette = listRecette.get(position);
-        String instructions = recette.getInstructions();
+        String instructions = "\n";
+        instructions += recette.getInstructions();
         m_instructions.setText(instructions);
 
         String nameRecette = recette.getName();
