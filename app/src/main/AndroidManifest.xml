@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="eu.tools.media.mycookbook">
+    package="eu.tools.media.mycookbook" >
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="MyCookBook"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
             android:label="MyCookBook"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,6 +23,11 @@
         <activity android:name=".activityForgotPassword" >
         </activity>
         <activity android:name=".activityVisuRecipe" >
+        </activity>
+        <activity
+            android:name=".activityProfileTest"
+            android:label="@string/title_activity_activity_profile_test"
+            android:theme="@style/AppTheme.NoActionBar" >
         </activity>
     </application>
 

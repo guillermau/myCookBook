@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // new activity: Your cook book
-                Intent intent = new Intent(MainActivity.this, activityProfile.class);
+                Intent intent = new Intent(MainActivity.this, activityProfileTest.class);
                 intent.putExtra(EXTRA_LOGIN, m_login.getText().toString());
                 intent.putExtra(EXTRA_PASSWORD, m_password.getText().toString());
                 startActivity(intent);
