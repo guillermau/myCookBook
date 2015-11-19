@@ -22,13 +22,24 @@
         </activity>
         <activity android:name=".activityForgotPassword" >
         </activity>
-        <activity android:name=".activityVisuRecipe" >
+        <activity
+            android:name=".activityVisuRecipe"
+            android:label="Mes recettes" >
         </activity>
         <activity
             android:name=".activityProfileTest"
             android:label="@string/title_activity_activity_profile_test"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
+        <activity
+            android:name=".activityEdit"
+            android:label="edition des recettes">
+        </activity>
+        <activity
+        android:name=".activityResearch"
+        android:label="recherche">
+    </activity>
+
     </application>
 
 </manifest>

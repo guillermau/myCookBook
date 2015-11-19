@@ -77,6 +77,8 @@ public class activityProfileTest extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.Recherche) {
+            Intent intent = new Intent(activityProfileTest.this, activityResearch.class);
+            startActivity(intent);
 
         } else if (id == R.id.profile) {
 

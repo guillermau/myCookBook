@@ -2,8 +2,11 @@ package eu.tools.media.mycookbook;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -14,6 +17,8 @@ import eu.tools.media.mycookbook.model.Ingredient;
 import eu.tools.media.mycookbook.model.Recipe;
 import eu.tools.media.mycookbook.model.UsedIngredient;
 import eu.tools.media.mycookbook.model.User;
+
+import static eu.tools.media.mycookbook.R.id.fab;
 
 /**
  * Created by benedictefahrer on 10/11/2015.
@@ -28,6 +33,8 @@ public class activityVisuRecipe extends AppCompatActivity{
     TextView m_nameRecette = null;
     TextView m_temps = null;
 
+    private FloatingActionButton m_editButton = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +45,7 @@ public class activityVisuRecipe extends AppCompatActivity{
         m_instructions = (TextView) findViewById(R.id.instructionsList);
         m_nameRecette = (TextView) findViewById(R.id.nameRecipe);
         m_temps = (TextView) findViewById(R.id.temps);
+        m_editButton = (FloatingActionButton) findViewById(R.id.fab);
 
         // Création d'un user
         Connection connection = new Connection("couchDB.Boudrat.eu","5984","mycookbook");
@@ -48,7 +56,7 @@ public class activityVisuRecipe extends AppCompatActivity{
 
         // get the recipe we want ti visualize
         String recipe = intent.getStringExtra(EXTRA_RECIPE);
-        int position = intent.getIntExtra(EXTRA_POSITION, 0);
+        final int position = intent.getIntExtra(EXTRA_POSITION, 0);
         Log.d("debug", recipe);
         Log.d("debug", "position" + position);
 
@@ -97,6 +105,17 @@ public class activityVisuRecipe extends AppCompatActivity{
         }
 
         m_ingredient.setText(nom_total);
+
+        m_editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // new activity: Edit the recipe
+                Intent intent = new Intent(activityVisuRecipe.this, activityEdit.class);
+                intent.putExtra("position", position);
+                startActivity(intent);
+
+            }
+        });
 
     }
 }
