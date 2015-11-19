@@ -22,4 +22,8 @@ public class Allergen {
         this.allergenId = allergenId;
         this.name = name;
     }
+
+    public String getName() {
+        return name;
+    }
 }

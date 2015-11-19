@@ -3,6 +3,7 @@ package eu.tools.media.mycookbook;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -10,9 +11,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
 
+import eu.tools.media.mycookbook.model.Allergen;
 import eu.tools.media.mycookbook.model.Connection;
 import eu.tools.media.mycookbook.model.Recipe;
+import eu.tools.media.mycookbook.model.UsedIngredient;
 import eu.tools.media.mycookbook.model.User;
 
 /**
@@ -44,14 +49,33 @@ public class activityResearch extends AppCompatActivity {
         ArrayList<String> listNoms = new ArrayList<String>();
         for (int i = 0; i < listRecette.size(); ++i) {
             Recipe recette = listRecette.get(i);
-            String nom = recette.getName();
-            listNoms.add(nom);
+            ArrayList<UsedIngredient> usedIngredientArrayList = recette.getIngredients();
+            for(int index = 0; index < usedIngredientArrayList.size(); ++index)
+            {
+                UsedIngredient ingre = usedIngredientArrayList.get(index);
+                Log.d("debug",ingre.getUsedIngredient().getName());
+                ArrayList<Allergen> allergenList = ingre.getUsedIngredient().getAllergen();
+                for(int j = 0; j < allergenList.size(); ++j)
+                {
+                    Log.d("debug", "test");
+                    String allergen = allergenList.get(j).getName();
+                    Log.d("debug",allergen);
+                    listNoms.add(allergen);
+                }
+            }
+
         }
+
+        // parcourt de la liste et suppression des doublons
+        Set set = new HashSet() ;
+        set.addAll(listNoms) ;
+        ArrayList listAllergen = new ArrayList(set) ;
+
 
         //Création de l'adapter
         lView = (ListView) findViewById(R.id.listView);
         lView.setAdapter(new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_multiple_choice, listNoms));
+                android.R.layout.simple_list_item_multiple_choice, listAllergen));
         lView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
 
