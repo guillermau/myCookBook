@@ -36,14 +36,10 @@
             android:layout_marginLeft="70dp"
             android:layout_weight="1"/>-->
 
-        <ImageButton
-            android:layout_width="82dp"
-            android:layout_height="63dp"
-            android:id="@+id/buttonEditRecipe"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="70dp"
-            android:layout_gravity="right"
-            android:background="@drawable/crayon"/>
+        <android.support.design.widget.FloatingActionButton android:id="@+id/fab"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end" android:layout_margin="@dimen/fab_margin"
+            android:src="@drawable/crayon" />
 
     </LinearLayout>
 
@@ -72,6 +68,11 @@
         android:textSize="30sp"
         android:layout_weight="0"
         android:layout_below="@+id/temps"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton" />
 
     <TextView
         android:layout_width="wrap_content"
