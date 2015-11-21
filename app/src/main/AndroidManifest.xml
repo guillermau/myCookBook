@@ -28,7 +28,6 @@
         </activity>
         <activity
             android:name=".activityProfileTest"
-            android:label="@string/title_activity_activity_profile_test"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
@@ -39,6 +38,10 @@
         android:name=".activityResearch"
         android:label="recherche">
     </activity>
+        <activity
+            android:name=".activityUser"
+            android:label="Mon Profil">
+        </activity>
 
     </application>
 

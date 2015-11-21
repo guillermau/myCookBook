@@ -8,44 +8,21 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@drawable/background">
+    android:background="@drawable/backgroundtest">
 
     <TextView
         android:id="@+id/pageLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textColor="#474766"
+        android:textColor="#000000"
         android:textSize="40sp"
-        android:text="My Profile"/>
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nom d'utilisateur : "
-        android:id="@+id/username"
-        android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="#536c84"
-        android:gravity="center"
-        android:layout_marginTop="30dp"
-        android:layout_below="@+id/pageLogin"
-        android:layout_alignParentStart="true" />
+        android:text="Mes Recettes"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="adresse e-mail : "
-        android:id="@+id/email"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="#536c84"
-        android:gravity="center"
-        android:layout_below="@+id/username"
-        android:layout_marginTop="10dp"
-        android:layout_alignParentStart="true" />
 
     <ListView
         android:layout_width="wrap_content"
@@ -56,20 +33,18 @@
         android:textStyle="bold"
         android:layout_below="@+id/pageLogin"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="150dp"
         android:layout_alignParentEnd="true">
 
     </ListView>
 
     <ImageView
-        android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/avatar"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginLeft="10dp"
-        android:layout_alignBottom="@+id/email" />
+        android:id="@+id/imageView3"
+        android:src="@drawable/cuillere"
+        android:layout_below="@+id/pageLogin"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>

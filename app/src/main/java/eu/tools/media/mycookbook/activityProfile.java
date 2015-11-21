@@ -100,28 +100,5 @@ public class activityProfile extends AppCompatActivity {
                 }
             });
 
-            // Profile Of FirstName FamilyName
-            m_profileUser = (TextView) findViewById(R.id.pageLogin);
-            String firstName = myUser.getFirstName();
-            String familyName = myUser.getFamilyName();
-            String name_profile = "Profile de ";
-            name_profile += firstName;
-            name_profile += " ";
-            name_profile += familyName;
-            m_profileUser.setText(name_profile);
-
-            // Display user name
-            m_userName = (TextView) findViewById(R.id.username);
-            String nom_user = "Nom d'utilisateur : ";
-            nom_user += username;
-            m_userName.setText(nom_user);
-
-            // Display Email Address
-            m_emailAddress = (TextView) findViewById(R.id.email);
-            String email = myUser.getEmailAddress();
-            String user_address = "Adresse Email : ";
-            user_address += email;
-            m_emailAddress.setText(user_address);
-
         }
 }

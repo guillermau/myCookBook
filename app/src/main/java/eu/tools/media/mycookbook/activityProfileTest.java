@@ -81,6 +81,8 @@ public class activityProfileTest extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.profile) {
+            Intent intent = new Intent(activityProfileTest.this, activityUser.class);
+            startActivity(intent);
 
         }
 

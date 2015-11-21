@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/backgroundtest">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView4" />
+
+    <TextView
+        android:id="@+id/pageLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="#000000"
+        android:textSize="40sp"
+        android:text="My Profile"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+
+    <!--<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nom d'utilisateur : "
+        android:id="@+id/username"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#536c84"
+        android:gravity="center"
+        android:layout_below="@+id/imageView4"
+        android:layout_alignStart="@+id/email" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="adresse e-mail : "
+        android:id="@+id/email"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#536c84"
+        android:gravity="center"
+        android:layout_below="@+id/username"
+        android:layout_alignEnd="@+id/pageLogin" />-->
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageHome"
+        android:src="@drawable/ic_action_home"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageNom"
+        android:src="@drawable/ic_action_account_circle"
+        android:layout_below="@+id/imageHome"
+        android:layout_alignStart="@+id/pageLogin" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageMail"
+        android:src="@drawable/ic_content_markunread"
+        android:layout_below="@+id/imageNom"
+        android:layout_marginTop="10dp"
+        android:layout_alignStart="@+id/imageNom" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageRecette"
+        android:src="@drawable/ic_maps_local_library"
+        android:layout_below="@+id/imageMail"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentStart="@+id/imageMail" />
+
+    <TextView
+    android:id="@+id/textViewNom"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textColor="#000000"
+    android:textSize="20sp"
+    android:text="Nom"
+    android:layout_above="@+id/imageMail"
+    android:textAlignment="@+id/imageNom"
+    android:gravity="center"
+    android:layout_marginLeft="15dp"
+    android:layout_toEndOf="@+id/imageNom"
+    android:layout_alignTop="@+id/imageNom" />
+
+    <TextView
+        android:id="@+id/textViewMail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:text="Adresse mail"
+        android:layout_above="@+id/imageRecette"
+        android:textAlignment="@+id/imageMail"
+        android:gravity="center"
+        android:layout_marginLeft="15dp"
+        android:layout_toEndOf="@+id/imageMail"
+        android:layout_alignTop="@+id/imageMail" />
+
+    <TextView
+        android:id="@+id/textViewRecette"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:text="Nombres de recettes"
+        android:textAlignment="@+id/imageMail"
+        android:gravity="center"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_toEndOf="@+id/imageRecette"
+        android:layout_alignTop="@+id/imageRecette" />
+
+
+</RelativeLayout>

@@ -18,20 +18,29 @@
         android:id="@+id/imageView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/logo"
+        android:src="@drawable/livre"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"/>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/nom"
+        android:layout_below="@+id/imageView1"
+        android:layout_centerHorizontal="true" />
+
 
     <EditText
         android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="User Name"
-        android:textColor="#e6dcfa"
+        android:textColor="#ffff"
         android:textSize="40sp"
         android:inputType="text"
-        android:layout_below="@+id/imageView1"
+        android:layout_below="@+id/imageView2"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"/>
 
@@ -40,6 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Password"
+        android:textColor="@android:color/white"
         android:textSize="40sp"
         android:inputType="textPassword"
         android:layout_below="@+id/username"
@@ -79,6 +89,8 @@
             android:background="@drawable/custom_button"
             android:layout_marginTop="56dp"
             android:layout_marginLeft="40dp"/>
+
+
 
     </LinearLayout>
 
