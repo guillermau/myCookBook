@@ -3,6 +3,7 @@ package eu.tools.media.mycookbook.model;
 import android.util.Base64;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.UUID;
 
 public class Ingredient {
 
@@ -70,11 +71,18 @@ public class Ingredient {
                 this.name = "Chocolat";
                 this.description = "C'est de la barre";
                 this.allergen = new ArrayList<Allergen>();
+                UUID allergenUid = UUID.randomUUID();;
+                Allergen cacao = new Allergen(allergenUid,"cacao");
+                this.allergen.add(cacao);
+
                 break;
             case "2":
                 this.name = "Farine de blé";
                 this.description = "C'est de la barre";
                 this.allergen = new ArrayList<Allergen>();
+                UUID allergenUid1 = UUID.randomUUID();;
+                Allergen glutene = new Allergen(allergenUid1,"glutene");
+                this.allergen.add(glutene);
                 break;
             case "3":
                 this.name = "Oeufs";
@@ -90,6 +98,9 @@ public class Ingredient {
                 this.name = "Lait";
                 this.description = "C'est de la barre";
                 this.allergen = new ArrayList<Allergen>();
+                UUID allergenUid2 = UUID.randomUUID();;
+                Allergen lactose = new Allergen(allergenUid2,"lactose");
+                this.allergen.add(lactose);
                 break;
             case "7":
                 this.name = "Sirop de fraise";
