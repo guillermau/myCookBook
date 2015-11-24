@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,12 +18,17 @@ import android.view.MenuItem;
 public class activityProfileTest extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    final String EXTRA_LOGIN = "user_login";
+    final String LOGIN = "login";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity_profile_test);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -81,7 +87,10 @@ public class activityProfileTest extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.profile) {
+            final Intent i = getIntent();
+            Log.d("debug",i.getStringExtra(EXTRA_LOGIN));
             Intent intent = new Intent(activityProfileTest.this, activityUser.class);
+            intent.putExtra(LOGIN,i.getStringExtra(EXTRA_LOGIN));
             startActivity(intent);
 
         }

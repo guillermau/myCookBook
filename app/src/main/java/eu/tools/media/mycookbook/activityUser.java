@@ -38,6 +38,7 @@ public class activityUser extends AppCompatActivity {
     TextView m_userName = null;
     TextView m_emailAddress = null;
     TextView m_profileUser = null;
+    final String LOGIN = "login";
 
 
     @Override
@@ -48,9 +49,10 @@ public class activityUser extends AppCompatActivity {
 
         // Création d'un user
         Connection connection = new Connection("couchDB.Boudrat.eu","5984","mycookbook");
-        User myUser = new User(connection,intent.getStringExtra(EXTRA_LOGIN),intent.getStringExtra(EXTRA_PASSWORD));
+        User myUser = new User(connection,intent.getStringExtra(LOGIN),intent.getStringExtra(EXTRA_PASSWORD));
 
-        final String username = myUser.getUsername();
+        Log.d("debug",intent.getStringExtra(LOGIN));
+        final String username = intent.getStringExtra(LOGIN);
         final String pass = myUser.getPassword();
         String mail = myUser.getEmailAddress();
             /*Log.d ("debug", username);
