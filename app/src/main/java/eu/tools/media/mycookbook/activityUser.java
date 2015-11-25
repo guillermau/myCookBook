@@ -1,9 +1,8 @@
 package eu.tools.media.mycookbook;
 
-/**
- * Created by marion on 19/11/2015.
- */
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;import android.support.v7.widget.Toolbar;
 import android.support.design.widget.FloatingActionButton;
@@ -12,6 +11,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Button;
@@ -37,15 +37,11 @@ import org.json.JSONObject;
 public class activityUser extends AppCompatActivity {
     public static final String PREFS_NAME = "SavedLogin";
 
-    final String EXTRA_LOGIN = "user_login";
-    final String EXTRA_PASSWORD = "user_password";
-
     TextView m_userName = null;
     TextView m_emailAddress = null;
     TextView m_profileUser = null;
     TextView m_textViewRecette = null;
-    final String LOGIN = "login";
-
+    ImageView m_imageHome = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,25 +49,19 @@ public class activityUser extends AppCompatActivity {
         setContentView(R.layout.activity_user);
         Intent intent = getIntent();
 
-        // TODO Intend ou Saved ?
         SharedPreferences profile = getSharedPreferences(PREFS_NAME, 0);
         String savedUsername = profile.getString("username", "false");
         String savedPassword = profile.getString("password", "false");
-
-        Log.d("debug",intent.getStringExtra(LOGIN));
-        final String username = intent.getStringExtra(LOGIN);
-
-        final String EXTRA_LOGIN = "user_login"; // TODO Usefull ?
-        final String EXTRA_PASSWORD = "user_password"; // TODO Usefull ?
 
         m_profileUser = (TextView) findViewById(R.id.pageLogin);
         m_userName = (TextView) findViewById(R.id.textViewNom);
         m_emailAddress = (TextView) findViewById(R.id.textViewMail);
         m_textViewRecette = (TextView) findViewById(R.id.textViewRecette);
+        m_imageHome = (ImageView) findViewById(R.id.imageHome);
 
         // Instantiate the RequestQueue.
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="http://couchdb.bourdat.eu:5984/mycookbook/"+savedUsername;
+        final RequestQueue queue = Volley.newRequestQueue(this);
+        final String url ="http://couchdb.bourdat.eu:5984/mycookbook/"+savedUsername;
 
         // Request a string response from the provided URL.
         JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, url,
@@ -89,15 +79,38 @@ public class activityUser extends AppCompatActivity {
                         } catch (JSONException exp) {
                             Log.e("Error","Bad JSON", exp);
                         }
-                        // Display the first 500 characters of the response string.
+
+                        try {
+                            String ImageName = response.getString("pictureProfile");
+                            String urlPict = url+"/"+ImageName;
+
+                            ImageRequest profilePic = new ImageRequest (urlPict,
+                                    new Response.Listener<Bitmap>() {
+                                        @Override
+                                        public void onResponse(Bitmap response) {
+                                            m_imageHome.setImageBitmap(response);
+                                        }
+                                    },0, 0, null
+                                    , new Response.ErrorListener(){
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+                                            Log.e("error","Pas de photo de profil",error);
+                                        }
+                                    });
+
+                            queue.add(profilePic);
+
+                        } catch (JSONException exp) {
+                            Log.i("Info","Pas de photo de profil");
+                        }
 
                     }
                 }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                m_emailAddress.setText("That didn't work!");
-            }
-        });
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        m_emailAddress.setText("That didn't work!");
+                    }
+                });
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
 

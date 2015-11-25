@@ -53,8 +53,8 @@
         android:layout_alignEnd="@+id/pageLogin" />-->
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200px"
+        android:layout_height="200px"
         android:id="@+id/imageHome"
         android:src="@drawable/ic_action_home"
         android:layout_alignParentTop="true"
