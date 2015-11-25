@@ -42,6 +42,7 @@ public class activityProfile extends AppCompatActivity {
 
             //Création de l'adapter
             final ArrayList<String> listNoms = new ArrayList<String>();
+            final ArrayList<String> listId = new ArrayList<String>();
             final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listNoms);
 
             // TODO Intend ou Saved ?
@@ -74,11 +75,11 @@ public class activityProfile extends AppCompatActivity {
                                                 public void onResponse(JSONObject recipe) {
                                                     try {
                                                         listNoms.add(recipe.getString("name"));
+                                                        listId.add(recipe.getString("_id"));
                                                         list1.setAdapter(adapter);
                                                     } catch (JSONException exp) {
                                                         Log.e("Error","Bad JSON", exp);
                                                     }
-                                                    // Display the first 500 characters of the response string.
 
                                                 }
                                             }, new Response.ErrorListener() {
@@ -111,14 +112,12 @@ public class activityProfile extends AppCompatActivity {
                                         int position, long id) {
 
                     // selected item
-                    String product = ((TextView) view).getText().toString();
+                    String idRecipe = listId.get(position);
 
                     // Launching new Activity on selecting single List Item
                     Intent i = new Intent(getApplicationContext(), activityVisuRecipe.class);
                     // sending data to new activity
-                    i.putExtra("product", product);
-                    i.putExtra("position", position);
-                    //Log.d("debug", "position "+position);
+                    i.putExtra("idRecipe", idRecipe);
                     startActivity(i);
 
                 }
