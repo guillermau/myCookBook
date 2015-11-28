@@ -6,32 +6,33 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 
-import eu.tools.media.mycookbook.model.Connection;
-import eu.tools.media.mycookbook.model.Ingredient;
-import eu.tools.media.mycookbook.model.Recipe;
-import eu.tools.media.mycookbook.model.UsedIngredient;
-import eu.tools.media.mycookbook.model.User;
-
-import static eu.tools.media.mycookbook.R.id.fab;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by benedictefahrer on 10/11/2015.
  */
 public class activityVisuRecipe extends AppCompatActivity{
-    final String EXTRA_LOGIN = "user_login";
-    final String EXTRA_PASSWORD = "user_password";
-    final String EXTRA_RECIPE = "product";
-    final String EXTRA_POSITION = "position";
+
+    static final String PREFS_NAME = "SavedLogin";
+    final String EXTRA_RECIPE = "idRecipe";
+
     TextView m_ingredient = null;
     TextView m_instructions = null;
     TextView m_nameRecette = null;
     TextView m_temps = null;
+    TextView m_tmpPrep = null;
+    TextView m_tmpCook = null;
+    TextView m_tmpTotal = null;
 
     private FloatingActionButton m_editButton = null;
 
@@ -46,72 +47,56 @@ public class activityVisuRecipe extends AppCompatActivity{
         m_nameRecette = (TextView) findViewById(R.id.nameRecipe);
         m_temps = (TextView) findViewById(R.id.temps);
         m_editButton = (FloatingActionButton) findViewById(R.id.fab);
-
-        // Création d'un user
-        Connection connection = new Connection("couchDB.Boudrat.eu","5984","mycookbook");
-        User myUser = new User(connection,intent.getStringExtra(EXTRA_LOGIN),intent.getStringExtra(EXTRA_PASSWORD));
-
-        // get the list of recipe
-        ArrayList<Recipe> listRecette = myUser.getCookbook();
+        m_tmpPrep = (TextView) findViewById(R.id.tmpPrep);
+        m_tmpCook = (TextView) findViewById(R.id.tmpCook);
+        m_tmpTotal =  (TextView) findViewById(R.id.tmpTotal);
 
         // get the recipe we want ti visualize
-        String recipe = intent.getStringExtra(EXTRA_RECIPE);
-        final int position = intent.getIntExtra(EXTRA_POSITION, 0);
-        Log.d("debug", recipe);
-        Log.d("debug", "position" + position);
+        final String idRecipe = intent.getStringExtra(EXTRA_RECIPE);
 
-        Recipe recette = listRecette.get(position);
-        String instructions = "\n";
-        instructions += recette.getInstructions();
-        m_instructions.setText(instructions);
+        // Instantiate the RequestQueue.
+        final RequestQueue queue = Volley.newRequestQueue(this);
+        final String baseUrl ="http://couchdb.bourdat.eu:5984/mycookbook/";
+        String urlRecipe = baseUrl+"/"+idRecipe;
 
-        String nameRecette = recette.getName();
-        m_nameRecette.setText(nameRecette);
+        JsonObjectRequest recipeRequest = new JsonObjectRequest(Request.Method.GET, urlRecipe,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject recipe) {
+                        try {
+                            m_nameRecette.setText(recipe.getString("name"));
+                            m_instructions.setText(recipe.getString("instructions"));
+                            Integer tempsCuisson = new Integer(recipe.getInt("cookingTime"));
+                            Integer tempsPreparation = new Integer(recipe.getInt("preparationTime"));
+                            Integer tempsTotal = tempsCuisson + tempsPreparation;
+                            m_temps.setText(tempsTotal.toString());
+                            m_tmpPrep.setText(tempsPreparation.toString());
+                            m_tmpCook.setText(tempsCuisson.toString());
+                            m_tmpTotal.setText(tempsTotal.toString());
 
-        int tempsCuisson = recette.getTempsCuisson();
-        Log.d("debug", " " + tempsCuisson);
-        int tempsPreparation = recette.getTempsPreparation();
-        Log.d("debug", " " + tempsPreparation);
-
-        String tempsTotal = " temps de cuisson : ";
-        tempsTotal += tempsCuisson;
-        tempsTotal +=" minutes";
-        tempsTotal += "\n";
-        tempsTotal+= " temps de préparation: ";
-        tempsTotal += tempsPreparation;
-        tempsTotal +=" minutes";
-        m_temps.setText(tempsTotal);
+                            // TODO ListView
 
 
+                        } catch (JSONException exp) {
+                            Log.e("Error","Bad JSON", exp);
+                        }
 
-
-        ArrayList<UsedIngredient> ingredients = recette.getIngredients();
-
-        String nom_total = "\n";
-        for(int i = 0; i < ingredients.size(); ++i)
-        {
-            UsedIngredient ingredient = ingredients.get(i);
-            Ingredient ingre = ingredient.getUsedIngredient();
-            int quantite = ingredient.getQuantity();
-            String unite = ingredient.getUnit();
-            String nom = ingre.getName();
-            nom_total += "  - ";
-            nom_total += quantite;
-            nom_total += " ";
-            nom_total += unite;
-            nom_total += " ";
-            nom_total += nom;
-            nom_total += "\n";
-        }
-
-        m_ingredient.setText(nom_total);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // TODO Handle error
+            }
+        });
+        // Add the request to the RequestQueue.
+        queue.add(recipeRequest);
 
         m_editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // new activity: Edit the recipe
-                Intent intent = new Intent(activityVisuRecipe.this, activityEdit.class);
-                intent.putExtra("position", position);
+                Intent intent = new Intent(activityVisuRecipe.this, activityEditRecipe.class);
+                intent.putExtra("idRecipe", idRecipe);
                 startActivity(intent);
 
             }

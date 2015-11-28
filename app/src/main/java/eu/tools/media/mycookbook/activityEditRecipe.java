@@ -18,10 +18,7 @@ import eu.tools.media.mycookbook.model.Recipe;
 import eu.tools.media.mycookbook.model.UsedIngredient;
 import eu.tools.media.mycookbook.model.User;
 
-/**
- * Created by benedictefahrer on 10/11/2015.
- */
-public class activityEdit extends AppCompatActivity  {
+public class activityEditRecipe extends AppCompatActivity  {
     EditText m_editText = null;
     FloatingActionButton m_saveButton;
     final String EXTRA_LOGIN = "user_login";

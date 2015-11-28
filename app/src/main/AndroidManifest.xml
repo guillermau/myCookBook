@@ -33,7 +33,7 @@
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
-            android:name=".activityEdit"
+            android:name=".activityEditRecipe"
             android:label="edition des recettes">
         </activity>
         <activity

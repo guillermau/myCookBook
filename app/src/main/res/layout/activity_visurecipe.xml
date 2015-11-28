@@ -20,7 +20,7 @@
             android:layout_gravity="center"
             android:textColor="#474766"
             android:textSize="40sp"
-            android:layout_weight="2"/>
+            android:layout_weight="0.71"/>
 
         <!--<Button
             android:layout_width="wrap_content"
@@ -43,20 +43,77 @@
 
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
+    <TableLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Temps"
-        android:id="@+id/temps"
-        android:layout_gravity="left"
-        android:textColor="#474766"
-        android:textSize="20sp"
-        android:layout_below="@+id/nameRecipe"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"/>
+        android:layout_weight="0.02">
 
-    <View style="@style/Divider"/>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Temps de préparation :"
+                android:id="@+id/defTmp"
+                android:textStyle="bold"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="undefined"
+                android:id="@+id/tmpPrep"
+                android:textSize="15sp" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Temps de cuisson : "
+                android:id="@+id/defTmp2"
+                android:textStyle="bold"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="undefined"
+                android:id="@+id/tmpCook"
+                android:textSize="15sp" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Temps total :"
+                android:id="@+id/defTmp3"
+                android:textStyle="bold"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="undefined"
+                android:id="@+id/tmpTotal"
+                android:textSize="15sp" />
+
+        </TableRow>
+
+    </TableLayout>
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -69,16 +126,11 @@
         android:layout_weight="0"
         android:layout_below="@+id/temps"/>
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageButton" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Ingrédients:"
+        android:text="Ingrédients"
         android:id="@+id/ingredientsList"
         android:textColor="#474766"
         android:textSize="20sp"
