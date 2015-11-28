@@ -3,10 +3,22 @@ package eu.tools.media.mycookbook;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Button;
 import android.content.Intent;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
 
         editor.commit(); // Commit the edits!
 
+        // Load queue for connection
+        final RequestQueue queue = Volley.newRequestQueue(this);
+
         // get login and password
         m_login = (EditText) findViewById(R.id.username);
         m_password = (EditText) findViewById(R.id.password);
@@ -56,6 +71,40 @@ public class MainActivity extends AppCompatActivity {
         m_signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                SharedPreferences profile = getSharedPreferences(PREFS_DATABASE, 0);
+                String baseUrl = profile.getString("url", "false");
+                String url = baseUrl+"_design/user/_view/byUserName?key=\""+m_login.getText().toString()+"\"";
+
+                // Request a string response from the provided URL.
+                JsonObjectRequest passwordRequest = new JsonObjectRequest(Request.Method.GET, url,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                try {
+                                    JSONArray rows = response.getJSONArray("rows");
+                                    JSONObject value = rows.getJSONObject(0).getJSONObject("value");
+
+                                    if (value.getString("password") == m_password.getText().toString()) {
+                                        // good password
+                                    }
+                                    else {
+                                        // bad password
+                                    }
+
+                                } catch (JSONException exp) {
+                                    Log.e("Error", "Bad JSON", exp);
+                                }
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+                // Add the request to the RequestQueue.
+                queue.add(passwordRequest);
+
 
                 // We need an Editor object to make preference changes.
                 // All objects are from android.context.Context
