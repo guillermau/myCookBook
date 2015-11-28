@@ -94,4 +94,17 @@
 
     </LinearLayout>
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/errorMessage"
+        android:layout_below="@+id/imageView2"
+        android:layout_centerHorizontal="true"
+        android:enabled="false"
+        android:background="#2CA5AE"
+        android:text="Wrong password"
+        android:textSize="30dp"
+        android:textIsSelectable="true"
+        android:visibility="invisible" />
+
 </RelativeLayout>
