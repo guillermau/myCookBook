@@ -1,6 +1,7 @@
 package eu.tools.media.mycookbook;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -15,15 +16,16 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Created by benedictefahrer on 10/11/2015.
- */
 public class activityVisuRecipe extends AppCompatActivity{
 
     static final String PREFS_NAME = "SavedLogin";
+    static final String PREFS_PROFILE = "SavedProfile";
+    static final String PREFS_DATABASE = "SavedDatabase";
+
     final String EXTRA_RECIPE = "idRecipe";
 
     TextView m_ingredient = null;
@@ -42,22 +44,24 @@ public class activityVisuRecipe extends AppCompatActivity{
         setContentView(R.layout.activity_visurecipe);
         Intent intent = getIntent();
 
+        SharedPreferences profile = getSharedPreferences(PREFS_DATABASE, 0);
+        final String baseUrl = profile.getString("url", "false");
+
         m_ingredient = (TextView) findViewById(R.id.ingredientsList);
         m_instructions = (TextView) findViewById(R.id.instructionsList);
         m_nameRecette = (TextView) findViewById(R.id.nameRecipe);
-        m_temps = (TextView) findViewById(R.id.temps);
         m_editButton = (FloatingActionButton) findViewById(R.id.fab);
         m_tmpPrep = (TextView) findViewById(R.id.tmpPrep);
         m_tmpCook = (TextView) findViewById(R.id.tmpCook);
         m_tmpTotal =  (TextView) findViewById(R.id.tmpTotal);
 
-        // get the recipe we want ti visualize
+        // get the recipe we want to visualize
         final String idRecipe = intent.getStringExtra(EXTRA_RECIPE);
 
         // Instantiate the RequestQueue.
         final RequestQueue queue = Volley.newRequestQueue(this);
-        final String baseUrl ="http://couchdb.bourdat.eu:5984/mycookbook/";
-        String urlRecipe = baseUrl+"/"+idRecipe;
+
+        String urlRecipe = baseUrl+idRecipe;
 
         JsonObjectRequest recipeRequest = new JsonObjectRequest(Request.Method.GET, urlRecipe,
                 new Response.Listener<JSONObject>() {
@@ -69,14 +73,42 @@ public class activityVisuRecipe extends AppCompatActivity{
                             Integer tempsCuisson = new Integer(recipe.getInt("cookingTime"));
                             Integer tempsPreparation = new Integer(recipe.getInt("preparationTime"));
                             Integer tempsTotal = tempsCuisson + tempsPreparation;
-                            m_temps.setText(tempsTotal.toString());
                             m_tmpPrep.setText(tempsPreparation.toString());
                             m_tmpCook.setText(tempsCuisson.toString());
                             m_tmpTotal.setText(tempsTotal.toString());
+                            m_ingredient.setText("");
 
                             // TODO ListView
+                            JSONArray ingredients = recipe.getJSONArray("ingredients");
+                            for(int i = 0; i < ingredients.length(); i++) {
+                                String idIngredient = ingredients.getJSONObject(i).getString("ingredient");
+                                final Integer quantity = ingredients.getJSONObject(i).getInt("quantity");
+                                final String unit = ingredients.getJSONObject(i).getString("unit");
 
+                                String urlIngredient = baseUrl+idIngredient;
+                                JsonObjectRequest ingredientRequest = new JsonObjectRequest(Request.Method.GET, urlIngredient, new Response.Listener<JSONObject>(){
+                                    @Override
+                                    public void onResponse(JSONObject ingredient) {
+                                        try {
+                                            String ingredientList = m_ingredient.getText().toString();
+                                            ingredientList += "- "+quantity+" "+unit+" "+ingredient.getString("name")+"\n";
+                                            m_ingredient.setText(ingredientList);
+                                        }
+                                        catch (JSONException err) {
 
+                                        }
+
+                                    }
+                                }, new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        // TODO Handle error
+                                    }
+                                });
+
+                                queue.add(ingredientRequest);
+
+                            }
                         } catch (JSONException exp) {
                             Log.e("Error","Bad JSON", exp);
                         }
