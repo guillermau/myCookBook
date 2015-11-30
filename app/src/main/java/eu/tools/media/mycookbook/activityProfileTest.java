@@ -18,10 +18,6 @@ import android.view.MenuItem;
 public class activityProfileTest extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    final String EXTRA_LOGIN = "user_login";
-    final String LOGIN = "login";
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,9 +84,7 @@ public class activityProfileTest extends AppCompatActivity
 
         } else if (id == R.id.profile) {
             final Intent i = getIntent();
-            Log.d("debug",i.getStringExtra(EXTRA_LOGIN));
             Intent intent = new Intent(activityProfileTest.this, activityUser.class);
-            intent.putExtra(LOGIN,i.getStringExtra(EXTRA_LOGIN));
             startActivity(intent);
 
         }
