@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.util.SparseBooleanArray;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -44,11 +45,21 @@ public class activityResearch extends AppCompatActivity {
     final String EXTRA_POSITION = "position";
     private ListView lView;
 
+    // list of allergen checked in the list
+    ArrayList<String> listIdAllergenSelected = new ArrayList<String>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_research);
         Intent intent = getIntent();
+
+        final ArrayList<String> listNoms = new ArrayList<String>();
+        final ArrayList<String> listId = new ArrayList<String>();
+        lView = (ListView) findViewById(R.id.listView);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, listNoms);
+        lView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+
 
         SharedPreferences profile = getSharedPreferences(PREFS_DATABASE, 0);
         String baseUrl = profile.getString("url", "false");
@@ -58,6 +69,7 @@ public class activityResearch extends AppCompatActivity {
         final RequestQueue queue = Volley.newRequestQueue(this);
 
         // Request a string response from the provided URL.
+
         JsonObjectRequest passwordRequest = new JsonObjectRequest(Request.Method.GET, url,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -69,9 +81,12 @@ public class activityResearch extends AppCompatActivity {
                                 JSONObject allergen = rows.getJSONObject(i);
                                 String allergenName = allergen.getString("key");
                                 String allergenId = allergen.getString("id");
+                                listNoms.add(allergenName);
+                                listId.add(allergenId);
+                                lView.setAdapter(adapter);
                             }
-
-                        } catch (JSONException exp) {
+                        }
+                        catch (JSONException exp) {
                             Log.e("Error", "Bad JSON", exp);
                         }
                     }
@@ -85,52 +100,25 @@ public class activityResearch extends AppCompatActivity {
         queue.add(passwordRequest);
 
 
-
-        // Création d'un user
-        Connection connection = new Connection("couchDB.Boudrat.eu","5984","mycookbook");
-        User myUser = new User(connection,intent.getStringExtra(EXTRA_LOGIN),intent.getStringExtra(EXTRA_PASSWORD));
-
-        ArrayList<Recipe> listRecette = myUser.getCookbook();
-        final String EXTRA_LOGIN = "user_login";
-        final String EXTRA_PASSWORD = "user_password";
-
-        ArrayList<String> listNoms = new ArrayList<String>();
-        for (int i = 0; i < listRecette.size(); ++i) {
-            Recipe recette = listRecette.get(i);
-            ArrayList<UsedIngredient> usedIngredientArrayList = recette.getIngredients();
-            for(int index = 0; index < usedIngredientArrayList.size(); ++index)
-            {
-                UsedIngredient ingre = usedIngredientArrayList.get(index);
-                Log.d("debug",ingre.getUsedIngredient().getName());
-                ArrayList<Allergen> allergenList = ingre.getUsedIngredient().getAllergen();
-                for(int j = 0; j < allergenList.size(); ++j)
-                {
-                    Log.d("debug", "test");
-                    String allergen = allergenList.get(j).getName();
-                    Log.d("debug",allergen);
-                    listNoms.add(allergen);
-                }
-            }
-
-        }
-
-        // parcourt de la liste et suppression des doublons
-        Set set = new HashSet() ;
-        set.addAll(listNoms) ;
-        ArrayList listAllergen = new ArrayList(set) ;
-
-
-        //Création de l'adapter
-        lView = (ListView) findViewById(R.id.listView);
-        lView.setAdapter(new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_multiple_choice, listAllergen));
-        lView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-
-
         // listening to single list item on click
         lView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
+
+                SparseBooleanArray positions = lView.getCheckedItemPositions();
+                // array containing the selected items : name of the allergen
+                ArrayList<String> selectedItems = new ArrayList<String>();
+                for (int i = 0; i < positions.size(); i++) {
+                    // Item position in adapter
+                    int positionTest = positions.keyAt(i);
+                    Log.d("debug", "pos "+positionTest);
+                   if (positions.valueAt(i))
+                   selectedItems.add(adapter.getItem(positionTest));
+                    Log.d("debug",listId.get(positionTest));
+                    listIdAllergenSelected.add(listId.get(positionTest));
+                   }
+
+
 
                 // Send a list of allergen
 
