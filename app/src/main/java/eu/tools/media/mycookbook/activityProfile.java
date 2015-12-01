@@ -31,6 +31,8 @@ import org.json.*;
 public class activityProfile extends AppCompatActivity {
 
     public static final String PREFS_NAME = "SavedLogin";
+    public static final String PREFS_PROFILE = "SavedProfile";
+    public static final String PREFS_DATABASE = "SavedDatabase";
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +52,11 @@ public class activityProfile extends AppCompatActivity {
             String savedUsername = profile.getString("username", "false");
             String savedPassword = profile.getString("password", "false");
 
-
             // Instantiate the RequestQueue.
             final RequestQueue queue = Volley.newRequestQueue(this);
-            final String baseUrl ="http://couchdb.bourdat.eu:5984/mycookbook/";
-            final String userUrl = baseUrl+"/"+savedUsername;
+            SharedPreferences database = getSharedPreferences(PREFS_DATABASE, 0);
+            final String baseUrl = database.getString("url", "false");
+            final String userUrl = baseUrl+savedUsername;
 
             // Request a string response from the provided URL.
             Log.i("Info","Quering "+userUrl);
@@ -66,7 +68,7 @@ public class activityProfile extends AppCompatActivity {
                                 JSONArray CookBook = response.getJSONArray("cookbook");
                                 for (int i = 0; i < CookBook.length(); ++i) {
                                     String id = CookBook.getString(i);
-                                    String idUrl = baseUrl + "/" + id;
+                                    String idUrl = baseUrl + id;
 
                                     Log.i("Info","Quering "+idUrl);
                                     JsonObjectRequest recipeRequest = new JsonObjectRequest(Request.Method.GET, idUrl,
