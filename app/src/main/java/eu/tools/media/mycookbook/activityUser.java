@@ -57,7 +57,7 @@ public class activityUser extends AppCompatActivity {
         m_userName = (TextView) findViewById(R.id.textViewNom);
         m_emailAddress = (TextView) findViewById(R.id.textViewMail);
         m_textViewRecette = (TextView) findViewById(R.id.textViewRecette);
-        m_imageHome = (ImageView) findViewById(R.id.imageHome);
+        m_imageHome = (ImageView) findViewById(R.id.imageView5);
 
         // Instantiate the RequestQueue.
         final RequestQueue queue = Volley.newRequestQueue(this);
