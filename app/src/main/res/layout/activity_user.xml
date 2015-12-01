@@ -21,36 +21,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textColor="#000000"
-        android:textSize="40sp"
+        android:textSize="30sp"
         android:text="My Profile"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
 
-
-    <!--<TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nom d'utilisateur : "
-        android:id="@+id/username"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="#536c84"
-        android:gravity="center"
-        android:layout_below="@+id/imageView4"
-        android:layout_alignStart="@+id/email" />
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="adresse e-mail : "
-        android:id="@+id/email"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="#536c84"
-        android:gravity="center"
-        android:layout_below="@+id/username"
-        android:layout_alignEnd="@+id/pageLogin" />-->
 
     <ImageView
         android:layout_width="200px"
@@ -127,6 +102,25 @@
         android:layout_marginTop="15dp"
         android:layout_toEndOf="@+id/imageRecette"
         android:layout_alignTop="@+id/imageRecette" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/imageRecette"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentEnd="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView5"
+            android:src="@drawable/avatar"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
 
 
 </RelativeLayout>
