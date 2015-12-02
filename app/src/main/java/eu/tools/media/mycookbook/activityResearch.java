@@ -3,6 +3,7 @@ package eu.tools.media.mycookbook;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -23,7 +24,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Set;
 import java.util.HashSet;
 
@@ -39,18 +42,12 @@ public class activityResearch extends AppCompatActivity {
     static final String PREFS_PROFILE = "SavedProfile";
     static final String PREFS_DATABASE = "SavedDatabase";
 
-    final String EXTRA_LOGIN = "user_login";
-    final String EXTRA_PASSWORD = "user_password";
-    final String EXTRA_RECIPE = "product";
-    final String EXTRA_POSITION = "position";
     private ListView lView;
     private ListView m_listView2;
+    private FloatingActionButton m_researchButton;
 
     // list of allergen checked in the list
     ArrayList<String> listIdAllergenSelected = new ArrayList<String>();
-
-    ArrayList<String> listRecipe = new ArrayList<>();
-    ArrayList<String> listIdRecipe = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,14 +55,17 @@ public class activityResearch extends AppCompatActivity {
         setContentView(R.layout.activity_research);
         Intent intent = getIntent();
 
+        final ArrayList<String> listRecipe = new ArrayList<>();
+        final ArrayList<String> listIdRecipe = new ArrayList<>();
+
         final ArrayList<String> listNoms = new ArrayList<String>();
         final ArrayList<String> listId = new ArrayList<String>();
         lView = (ListView) findViewById(R.id.listView);
         m_listView2 = (ListView) findViewById(R.id.listView2);
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, listNoms);
-        final ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, listRecipe);
+        final ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listRecipe);
         lView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-
+        m_researchButton = (FloatingActionButton) findViewById(R.id.resarch_button);
 
         SharedPreferences profile = getSharedPreferences(PREFS_DATABASE, 0);
         final String baseUrl = profile.getString("url", "false");
@@ -113,18 +113,41 @@ public class activityResearch extends AppCompatActivity {
                 SparseBooleanArray positions = lView.getCheckedItemPositions();
                 // array containing the selected items : name of the allergen
                 ArrayList<String> selectedItems = new ArrayList<String>();
-                    for (int i = 0; i < positions.size(); i++) {
+                for (int i = 0; i < positions.size(); i++) {
                     // Item position in adapter
                     int positionTest = positions.keyAt(i);
-                    Log.d("debug", "pos "+positionTest);
+                    Log.d("debug", "pos " + positionTest);
                     if (positions.valueAt(i))
                         selectedItems.add(adapter.getItem(positionTest));
-                    Log.d("debug",listId.get(positionTest));
+                    Log.d("debug", listId.get(positionTest));
                     listIdAllergenSelected.add(listId.get(positionTest));
                 }
+            }
+        });
 
-                listRecipe = new ArrayList<String>();
-                listIdRecipe = new ArrayList<String>();
+        // listening to single list item on click
+        m_listView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+                // selected item
+                String idRecipe = listIdRecipe.get(position);
+
+                // Launching new Activity on selecting single List Item
+                Intent i = new Intent(getApplicationContext(), activityVisuRecipe.class);
+                // sending data to new activity
+                i.putExtra("idRecipe", idRecipe);
+                startActivity(i);
+
+            }
+        });
+
+        m_researchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                listRecipe.clear();
+                listIdRecipe.clear();
 
                 // Send a list of allergen
 
@@ -137,7 +160,7 @@ public class activityResearch extends AppCompatActivity {
                                 try {
                                     JSONArray rows = response.getJSONArray("rows");
 
-                                    for (int i = 0; i < rows.length() ; i++) {
+                                    for (int i = 0; i < rows.length(); i++) {
                                         JSONObject recipe = rows.getJSONObject(i);
                                         final String idRecipe = recipe.getString("id");
                                         final String nameRecipe = recipe.getString("key");
@@ -145,12 +168,12 @@ public class activityResearch extends AppCompatActivity {
                                         listRecipe.add(nameRecipe);
                                         listIdRecipe.add(idRecipe);
 
-                                        Log.d("Ananalysing recette "+nameRecipe,"En cours");
+                                        Log.d("Ananalysing recette " + nameRecipe, "En cours");
 
                                         for (int j = 0; j < value.length(); j++) {
 
                                             final String ingredientId = value.getString(j);
-                                            Log.d("Ananalysing recette "+nameRecipe,": "+ingredientId+" >> En cours");
+                                            Log.d("Ananalysing recette " + nameRecipe, ": " + ingredientId + " >> En cours");
                                             String urlIngredient = baseUrl + ingredientId;
 
                                             JsonObjectRequest ingredientRequest = new JsonObjectRequest(Request.Method.GET, urlIngredient,
@@ -172,10 +195,9 @@ public class activityResearch extends AppCompatActivity {
                                                                             m_listView2.setAdapter(adapter2);
                                                                         }
                                                                     }
-                                                                    Log.i("List R",listRecipe.toString());
+                                                                    Log.i("List R", listRecipe.toString());
                                                                 }
-                                                            }
-                                                            catch (JSONException exp) {
+                                                            } catch (JSONException exp) {
                                                                 Log.e("Error", "Bad JSON in ingredientRequest", exp);
                                                             }
                                                         }
@@ -190,15 +212,14 @@ public class activityResearch extends AppCompatActivity {
                                             queue.add(ingredientRequest);
                                         }
 
-                                        Log.d("Ananalysing recette "+nameRecipe,"Done");
+                                        Log.d("Ananalysing recette " + nameRecipe, "Done");
 
                                         // lView.setAdapter(adapter);
                                     }
 
-                                    Log.i("List R",listRecipe.toString());
+                                    Log.i("List R", listRecipe.toString());
                                     m_listView2.setAdapter(adapter2);
-                                }
-                                catch (JSONException exp) {
+                                } catch (JSONException exp) {
                                     Log.e("Error", "Bad JSON in recipeRequest", exp);
                                 }
                             }
@@ -210,7 +231,6 @@ public class activityResearch extends AppCompatActivity {
                 });
                 // Add the request to the RequestQueue.
                 queue.add(recipeRequest);
-
             }
         });
 
