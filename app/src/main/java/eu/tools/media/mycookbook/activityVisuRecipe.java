@@ -28,10 +28,12 @@ public class activityVisuRecipe extends AppCompatActivity{
 
     final String EXTRA_RECIPE = "idRecipe";
 
+    RequestQueue queue;
+    String baseUrl;
+
     TextView m_ingredient = null;
     TextView m_instructions = null;
     TextView m_nameRecette = null;
-    TextView m_temps = null;
     TextView m_tmpPrep = null;
     TextView m_tmpCook = null;
     TextView m_tmpTotal = null;
@@ -45,7 +47,7 @@ public class activityVisuRecipe extends AppCompatActivity{
         Intent intent = getIntent();
 
         SharedPreferences profile = getSharedPreferences(PREFS_DATABASE, 0);
-        final String baseUrl = profile.getString("url", "false");
+        baseUrl = profile.getString("url", "false");
 
         m_ingredient = (TextView) findViewById(R.id.ingredientsList);
         m_instructions = (TextView) findViewById(R.id.instructionsList);
@@ -59,11 +61,29 @@ public class activityVisuRecipe extends AppCompatActivity{
         final String idRecipe = intent.getStringExtra(EXTRA_RECIPE);
 
         // Instantiate the RequestQueue.
-        final RequestQueue queue = Volley.newRequestQueue(this);
+        queue = Volley.newRequestQueue(this);
 
-        String urlRecipe = baseUrl+idRecipe;
+        m_editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // new activity: Edit the recipe
+                Intent intent = new Intent(activityVisuRecipe.this, activityEditRecipe.class);
+                intent.putExtra("idRecipe", idRecipe);
+                startActivity(intent);
 
-        JsonObjectRequest recipeRequest = new JsonObjectRequest(Request.Method.GET, urlRecipe,
+            }
+        });
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // get the recipe we want to visualize
+        Intent intent = getIntent();
+        final String idRecipe = intent.getStringExtra(EXTRA_RECIPE);
+
+        JsonObjectRequest recipeRequest = new JsonObjectRequest(Request.Method.GET, baseUrl+idRecipe,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject recipe) {
@@ -122,17 +142,5 @@ public class activityVisuRecipe extends AppCompatActivity{
         });
         // Add the request to the RequestQueue.
         queue.add(recipeRequest);
-
-        m_editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // new activity: Edit the recipe
-                Intent intent = new Intent(activityVisuRecipe.this, activityEditRecipe.class);
-                intent.putExtra("idRecipe", idRecipe);
-                startActivity(intent);
-
-            }
-        });
-
     }
 }
