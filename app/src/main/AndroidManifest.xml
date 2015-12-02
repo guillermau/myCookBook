@@ -34,11 +34,11 @@
         </activity>
         <activity
             android:name=".activityEditRecipe"
-            android:label="edition des recettes">
+            android:label="Edition des recettes">
         </activity>
         <activity
         android:name=".activityResearch"
-        android:label="recherche">
+        android:label="Recherche">
     </activity>
         <activity
             android:name=".activityUser"
