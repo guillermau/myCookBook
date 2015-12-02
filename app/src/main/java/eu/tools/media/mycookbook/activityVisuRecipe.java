@@ -2,17 +2,20 @@ package eu.tools.media.mycookbook;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -37,6 +40,7 @@ public class activityVisuRecipe extends AppCompatActivity{
     TextView m_tmpPrep = null;
     TextView m_tmpCook = null;
     TextView m_tmpTotal = null;
+    ImageView m_imageRecipe;
 
     private FloatingActionButton m_editButton = null;
 
@@ -56,6 +60,7 @@ public class activityVisuRecipe extends AppCompatActivity{
         m_tmpPrep = (TextView) findViewById(R.id.tmpPrep);
         m_tmpCook = (TextView) findViewById(R.id.tmpCook);
         m_tmpTotal =  (TextView) findViewById(R.id.tmpTotal);
+        m_imageRecipe = (ImageView) findViewById(R.id.imageRecette);
 
         // get the recipe we want to visualize
         final String idRecipe = intent.getStringExtra(EXTRA_RECIPE);
@@ -126,9 +131,31 @@ public class activityVisuRecipe extends AppCompatActivity{
                                     }
                                 });
 
-                                queue.add(ingredientRequest);
+                                // imageRecette
 
+                                queue.add(ingredientRequest);
                             }
+
+
+                            String ImageName = recipe.getString("photo");
+                            String urlPict = baseUrl+idRecipe+"/"+ImageName;
+
+                            ImageRequest profilePic = new ImageRequest (urlPict,
+                                    new Response.Listener<Bitmap>() {
+                                        @Override
+                                        public void onResponse(Bitmap response) {
+                                            m_imageRecipe.setImageBitmap(response);
+                                        }
+                                    },0, 0, null
+                                    , new Response.ErrorListener(){
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Log.e("error","Pas de photo de profil",error);
+                                }
+                            });
+
+                            queue.add(profilePic);
+
                         } catch (JSONException exp) {
                             Log.e("Error","Bad JSON", exp);
                         }
